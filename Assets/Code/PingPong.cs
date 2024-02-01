@@ -3,23 +3,23 @@ using UnityEngine;
 public class PingPong : MonoBehaviour
 {
     public float speed = 5f;
-    public float distance = 5f;
+    public float minX = -5f; // Minimikoordinaatti
+    public float maxX = 5f;  // Maksimikoordinaatti
 
-    private Vector2 startPosition;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        startPosition = transform.position;
-    }
+    private int direction = 1; // Liikkumissuunta: 1 eteenpäin, -1 taaksepäin
 
     // Update is called once per frame
     void Update()
     {
-        // Calculate movement based on sine function to make it go back and forth
-        float movement = Mathf.Sin(Time.time * speed) * distance;
+        // Liikuta oliota vaakasuunnassa
+        float horizontalMovement = direction * speed * Time.deltaTime;
+        transform.Translate(new Vector3(horizontalMovement, 0f, 0f));
 
-        // Update the Rigidbody2D position
-        GetComponent<Rigidbody2D>().MovePosition(startPosition + new Vector2(movement, 0f));
+        // Tarkista, onko olio saavuttanut reunan
+        if (transform.position.x <= minX || transform.position.x >= maxX)
+        {
+            // Vaihda liikkumissuuntaa
+            direction *= -1;
+        }
     }
 }
