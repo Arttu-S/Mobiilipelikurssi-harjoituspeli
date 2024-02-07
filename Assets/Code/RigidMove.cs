@@ -1,5 +1,6 @@
 using UnityEngine;
 
+namespace Harjoituspeli {
 public class MoveToTarget : MonoBehaviour
 {
     public Transform target;
@@ -12,7 +13,7 @@ public class MoveToTarget : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
             MoveCharacter(target.position);
     }
@@ -28,4 +29,5 @@ public class MoveToTarget : MonoBehaviour
         // Liikuta hahmoa käyttäen Rigidbody2D-komponenttia
         rb.MovePosition(rb.position + movement);
     }
+}
 }

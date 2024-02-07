@@ -1,5 +1,6 @@
 using UnityEngine;
 
+namespace Harjoituspeli {
 public class LaunchAndFall : MonoBehaviour
 {
     public float launchSpeed = 10f;
@@ -20,4 +21,5 @@ public class LaunchAndFall : MonoBehaviour
         // Apply full gravity effect
         rb.velocity += new Vector2(0f, Physics2D.gravity.y * Time.deltaTime);
     }
+}
 }
