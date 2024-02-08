@@ -33,6 +33,18 @@ public class InputReader : MonoBehaviour
     void Update()
     {
         _movementInput = _inputs.Game.Move.ReadValue<Vector2>();
+        bool isJumping = _inputs.Game.Jump.ReadValue<float>() > 0.0f;
+        if (isJumping)
+    {
+        Debug.Log("Jumping");
+    }
+
+    }
+    void Jump()
+    {
+        // Toteuta hyppytoiminnallisuus tässä
+        // Esimerkiksi:
+        // rigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
     }
 
 

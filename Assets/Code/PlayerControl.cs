@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Harjoituspeli
 {
-    [RequireComponent(typeof(InputReader), typeof(Mover))]
+    [RequireComponent(typeof(InputReader))]
     public class PlayerControl : MonoBehaviour
     {
 
