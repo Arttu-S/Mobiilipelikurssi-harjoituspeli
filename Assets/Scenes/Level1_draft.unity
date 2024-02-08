@@ -2570,7 +2570,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1785945285}
   moveSpeed: 5
-  rb: {fileID: 0}
 --- !u!50 &777206601
 Rigidbody2D:
   serializedVersion: 4
@@ -7374,7 +7373,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 0.0001
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0.01
   m_GravityScale: 0.5
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -7399,7 +7398,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9df181b368516584c9fc72b291a9846d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 5
+  _speed: 12
 --- !u!1 &1791374075
 GameObject:
   m_ObjectHideFlags: 0
