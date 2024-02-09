@@ -46,6 +46,15 @@ namespace Mobiiliesimerkki
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""dbb0489d-8c0e-4bd2-812e-437ac21212a3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -173,7 +182,7 @@ namespace Mobiiliesimerkki
                 {
                     ""name"": """",
                     ""id"": ""a4e91674-dae4-4738-b2ff-d3c07d3eac42"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""path"": ""<Gamepad>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -184,11 +193,33 @@ namespace Mobiiliesimerkki
                 {
                     ""name"": """",
                     ""id"": ""7192f26f-821d-4d6c-9431-6dae2681486e"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""path"": ""<Keyboard>/shift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c40df863-5bfb-492b-9a12-663e462d1f90"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c881fea1-6eff-4373-a0bd-bcb3fef8d78f"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -201,6 +232,7 @@ namespace Mobiiliesimerkki
             m_Game = asset.FindActionMap("Game", throwIfNotFound: true);
             m_Game_Move = m_Game.FindAction("Move", throwIfNotFound: true);
             m_Game_Interact = m_Game.FindAction("Interact", throwIfNotFound: true);
+            m_Game_Jump = m_Game.FindAction("Jump", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -264,12 +296,14 @@ namespace Mobiiliesimerkki
         private List<IGameActions> m_GameActionsCallbackInterfaces = new List<IGameActions>();
         private readonly InputAction m_Game_Move;
         private readonly InputAction m_Game_Interact;
+        private readonly InputAction m_Game_Jump;
         public struct GameActions
         {
             private @Inputs m_Wrapper;
             public GameActions(@Inputs wrapper) { m_Wrapper = wrapper; }
             public InputAction @Move => m_Wrapper.m_Game_Move;
             public InputAction @Interact => m_Wrapper.m_Game_Interact;
+            public InputAction @Jump => m_Wrapper.m_Game_Jump;
             public InputActionMap Get() { return m_Wrapper.m_Game; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -285,6 +319,9 @@ namespace Mobiiliesimerkki
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
+                @Jump.started += instance.OnJump;
+                @Jump.performed += instance.OnJump;
+                @Jump.canceled += instance.OnJump;
             }
 
             private void UnregisterCallbacks(IGameActions instance)
@@ -295,6 +332,9 @@ namespace Mobiiliesimerkki
                 @Interact.started -= instance.OnInteract;
                 @Interact.performed -= instance.OnInteract;
                 @Interact.canceled -= instance.OnInteract;
+                @Jump.started -= instance.OnJump;
+                @Jump.performed -= instance.OnJump;
+                @Jump.canceled -= instance.OnJump;
             }
 
             public void RemoveCallbacks(IGameActions instance)
@@ -316,6 +356,7 @@ namespace Mobiiliesimerkki
         {
             void OnMove(InputAction.CallbackContext context);
             void OnInteract(InputAction.CallbackContext context);
+            void OnJump(InputAction.CallbackContext context);
         }
     }
 }

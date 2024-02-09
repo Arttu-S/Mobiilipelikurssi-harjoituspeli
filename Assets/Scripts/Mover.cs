@@ -8,7 +8,16 @@ namespace Mobiiliesimerkki
 	{
 		[SerializeField]
 		private float _speed = 1.0f;
+		private Rigidbody2D rb;
 
+	void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
+
+		public void Jump() {
+			Debug.Log("Jump");
+		}
 		public void Move(Vector2 direction)
 		{
 			// transform on oikotie tämän GameObjectin Transform-komponenttiin.
@@ -17,8 +26,11 @@ namespace Mobiiliesimerkki
 			// kaksiulotteinen.
 			Vector3 position = transform.position;
 			position += new Vector3(direction.x, direction.y, 0) * _speed * Time.deltaTime;
-			transform.position = position;
+			//transform.position = position;
+			rb.MovePosition(position);
 		}
+		
 	}
+
 }
 

@@ -8,7 +8,7 @@ namespace Mobiiliesimerkki
 	{
 		private Inputs _inputs = null;
 		private Vector2 _movementInput = Vector2.zero;
-		private bool _interactInput = false;
+		private bool _jump = false;	//jump
 
 		/// <summary>
 		/// C#:n properetyt korvaavat mm. Javan getterit ja setterit.
@@ -19,6 +19,8 @@ namespace Mobiiliesimerkki
 		{
 			get { return _movementInput; }
 		}
+
+		public bool Jump => _jump;	//lambda: lyhentää getterin
 
 		private void Awake()
 		{
@@ -42,8 +44,7 @@ namespace Mobiiliesimerkki
 		private void Update()
 		{
 			_movementInput = _inputs.Game.Move.ReadValue<Vector2>();
-
-			// TODO: Lue interaktio-inputin arvo (eventti)
+			_jump = _inputs.Game.Jump.IsPressed();
 		}
 	}
 }
