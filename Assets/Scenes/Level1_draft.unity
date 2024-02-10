@@ -848,7 +848,7 @@ Transform:
   m_GameObject: {fileID: 287571455}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.9082022, y: -11.422773, z: -1}
+  m_LocalPosition: {x: -0.9082022, y: -17, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7166,10 +7166,10 @@ GameObject:
   - component: {fileID: 1785945284}
   - component: {fileID: 1785945286}
   - component: {fileID: 1785945289}
-  - component: {fileID: 1785945293}
   - component: {fileID: 1785945287}
   - component: {fileID: 1785945290}
   - component: {fileID: 1785945291}
+  - component: {fileID: 1785945292}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -7238,8 +7238,8 @@ Transform:
   m_GameObject: {fileID: 1785945283}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -30.524, y: -16.324, z: -1}
-  m_LocalScale: {x: 0.36195502, y: 0.35391998, z: 1}
+  m_LocalPosition: {x: -30.524, y: -16, z: -1}
+  m_LocalScale: {x: 0.5938199, y: 0.5806377, z: 1.6405903}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1495717320}
@@ -7371,9 +7371,9 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.0001
+  m_Mass: 0.3
   m_LinearDrag: 0
-  m_AngularDrag: 0.01
+  m_AngularDrag: 0.5
   m_GravityScale: 0.5
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -7385,8 +7385,8 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!114 &1785945293
+  m_Constraints: 4
+--- !u!114 &1785945292
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7395,10 +7395,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1785945283}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9df181b368516584c9fc72b291a9846d, type: 3}
+  m_Script: {fileID: 11500000, guid: a1ae6c7a09ad44e5f92c9ea4211716ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 12
+  _jumpThrust: 10
+  _thrust: 1
+  _maxVelocity: 5
 --- !u!1 &1791374075
 GameObject:
   m_ObjectHideFlags: 0

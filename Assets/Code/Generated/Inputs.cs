@@ -46,6 +46,15 @@ namespace Harjoituspeli
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""bb88c7c3-7636-482d-b95c-1fa730a36cb2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -191,6 +200,28 @@ namespace Harjoituspeli
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9b396f9a-34bb-4312-9597-02aa2cc2518e"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9eb23d6d-a38d-437b-9573-3b851831a55d"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -229,6 +260,7 @@ namespace Harjoituspeli
             m_Game = asset.FindActionMap("Game", throwIfNotFound: true);
             m_Game_Move = m_Game.FindAction("Move", throwIfNotFound: true);
             m_Game_Jump = m_Game.FindAction("Jump", throwIfNotFound: true);
+            m_Game_Interact = m_Game.FindAction("Interact", throwIfNotFound: true);
             // Menu
             m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
             m_Menu_Newaction = m_Menu.FindAction("New action", throwIfNotFound: true);
@@ -295,12 +327,14 @@ namespace Harjoituspeli
         private List<IGameActions> m_GameActionsCallbackInterfaces = new List<IGameActions>();
         private readonly InputAction m_Game_Move;
         private readonly InputAction m_Game_Jump;
+        private readonly InputAction m_Game_Interact;
         public struct GameActions
         {
             private @Inputs m_Wrapper;
             public GameActions(@Inputs wrapper) { m_Wrapper = wrapper; }
             public InputAction @Move => m_Wrapper.m_Game_Move;
             public InputAction @Jump => m_Wrapper.m_Game_Jump;
+            public InputAction @Interact => m_Wrapper.m_Game_Interact;
             public InputActionMap Get() { return m_Wrapper.m_Game; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -316,6 +350,9 @@ namespace Harjoituspeli
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
             }
 
             private void UnregisterCallbacks(IGameActions instance)
@@ -326,6 +363,9 @@ namespace Harjoituspeli
                 @Jump.started -= instance.OnJump;
                 @Jump.performed -= instance.OnJump;
                 @Jump.canceled -= instance.OnJump;
+                @Interact.started -= instance.OnInteract;
+                @Interact.performed -= instance.OnInteract;
+                @Interact.canceled -= instance.OnInteract;
             }
 
             public void RemoveCallbacks(IGameActions instance)
@@ -393,6 +433,7 @@ namespace Harjoituspeli
         {
             void OnMove(InputAction.CallbackContext context);
             void OnJump(InputAction.CallbackContext context);
+            void OnInteract(InputAction.CallbackContext context);
         }
         public interface IMenuActions
         {
