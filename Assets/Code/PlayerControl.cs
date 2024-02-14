@@ -7,7 +7,6 @@ namespace Harjoituspeli
     [RequireComponent(typeof(InputReader))]
     public class PlayerControl : MonoBehaviour
     {
-
         private InputReader _inputReader = null;
         private PhysicsMover _physicsMover = null;
 
@@ -16,7 +15,6 @@ namespace Harjoituspeli
             _inputReader = GetComponent<InputReader>();
             _physicsMover = GetComponent<PhysicsMover>();
         }
-        // Start is called before the first frame update
 
         // Update is called once per frame
         void Update()

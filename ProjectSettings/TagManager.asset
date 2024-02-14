@@ -8,13 +8,13 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - WorldBounds
   - Water
   - UI
   - Sky
   - Ground and props
-  - 
-  - 
+  - Details
+  - Player
   - 
   - 
   - 
