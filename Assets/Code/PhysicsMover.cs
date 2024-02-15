@@ -11,6 +11,7 @@ namespace Harjoituspeli
         [SerializeField] private float _thrust = 1.0f;
         [SerializeField] private float _maxVelocity = 65.0f;
         private Rigidbody2D rb;
+        private bool isGrounded;
 
         void Awake()
         {
@@ -35,10 +36,22 @@ namespace Harjoituspeli
             rb.AddForce(allowedDirection * _thrust);
         }
 
+        void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.gameObject.tag == "Ground")
+            {
+                isGrounded = true;
+            }
+        }
+
         public void Jump()
         {
+            if (isGrounded)
+            {
             Debug.Log("Jumping/PhysicsMover.cs");
             rb.AddForce(UnityEngine.Vector2.up * _jumpThrust, ForceMode2D.Impulse);
+            isGrounded = false;
+            }
         }
     }
 }
