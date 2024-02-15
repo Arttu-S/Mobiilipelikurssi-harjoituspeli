@@ -45,6 +45,7 @@ namespace Mobiiliesimerkki
 		{
 			_movementInput = _inputs.Game.Move.ReadValue<Vector2>();
 			_jump = _inputs.Game.Jump.IsPressed();
+			//Debug.Log("InputReader: " + _jump);
 		}
 	}
 }

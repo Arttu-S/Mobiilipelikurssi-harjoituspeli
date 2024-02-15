@@ -35,9 +35,7 @@ namespace Mobiiliesimerkki
 		{
 			// Luetaan käyttäjä syöte
 			_movement = _inputReader.Movement;
-			if(_inputReader.Jump) {
-				_mover.Jump();
-			}
+		
 			UpdateAnimator(_movement);
 		}
 
