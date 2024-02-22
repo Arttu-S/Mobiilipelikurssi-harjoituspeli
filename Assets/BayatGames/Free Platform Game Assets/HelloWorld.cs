@@ -25,7 +25,7 @@ public class HelloWorld : MonoBehaviour
         if (nextFibonacci > 1000)
         {
             // Stop updating and printing once it exceeds 1000
-            enabled = false;
+            Destroy(this);
             return;
         }
 

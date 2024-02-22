@@ -1,10 +1,14 @@
 using UnityEngine;
 
+namespace Harjoituspeli {
 public class PingPong : MonoBehaviour
 {
-    public float speed = 5f;
-    public float minX = -5f; // Minimikoordinaatti
-    public float maxX = 5f;  // Maksimikoordinaatti
+    [SerializeField]
+    private float speed = 5f;
+    [SerializeField]
+    private float minX = -5f; // Minimikoordinaatti
+    [SerializeField]
+    private float maxX = 5f;  // Maksimikoordinaatti
 
     private int direction = 1; // Liikkumissuunta: 1 eteenpäin, -1 taaksepäin
 
@@ -22,4 +26,5 @@ public class PingPong : MonoBehaviour
             direction *= -1;
         }
     }
+}
 }

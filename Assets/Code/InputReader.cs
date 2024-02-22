@@ -2,39 +2,47 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Harjoituspeli {
-public class InputReader : MonoBehaviour
+namespace Harjoituspeli
 {
-    private Inputs _inputs = null;
-    private Vector2 _movementInput = Vector2.zero;
-    private bool _interactInput = false;
-
-    public Vector2 Movement
+    public class InputReader : MonoBehaviour
     {
-        get { return _movementInput; }
-    }
+        private Inputs _inputs = null;
+        private Vector2 _movementInput = Vector2.zero;
+        private PhysicsMover _physicsMover = null;
 
-    void Awake()
-    {
-        _inputs = new Inputs();
-    }
-    
-    private void OnEnable()
-    {
-        _inputs.Game.Enable();
-    }
+        public Vector2 Movement
+        {
+            get { return _movementInput; }
+            private set { _movementInput = value; }
+        }
 
-    private void OnDisable()
-    {
-        _inputs.Game.Disable();
+        void Awake()
+        {
+            _inputs = new Inputs();
+            _physicsMover = GetComponent<PhysicsMover>(); // Assuming PhysicsMover is on the same GameObject
+        }
+
+        private void OnEnable()
+        {
+            _inputs.Game.Enable();
+        }
+
+        private void OnDisable()
+        {
+            _inputs.Game.Disable();
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            _movementInput = _inputs.Game.Move.ReadValue<Vector2>();
+            
+            // Check if the jump button is pressed (for example, space key or button)
+            if (_inputs.Game.Jump.triggered)
+            {
+                _physicsMover.Jump();
+                Debug.Log("Jumping");
+            }
+        }
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        _movementInput = _inputs.Game.Move.ReadValue<Vector2>();
-    }
-
-
-}
 }
