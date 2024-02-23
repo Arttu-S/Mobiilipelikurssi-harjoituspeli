@@ -31,7 +31,7 @@ namespace Mobiiliesimerkki
             ""actions"": [
                 {
                     ""name"": ""Move"",
-                    ""type"": ""Value"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""a12139a0-b2e6-41f9-99ed-8b5d0534c57c"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
@@ -51,6 +51,15 @@ namespace Mobiiliesimerkki
                     ""name"": ""Jump"",
                     ""type"": ""Button"",
                     ""id"": ""dbb0489d-8c0e-4bd2-812e-437ac21212a3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Launch"",
+                    ""type"": ""Button"",
+                    ""id"": ""15b91e7a-7da9-4587-9507-37eaca2992a4"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -222,6 +231,17 @@ namespace Mobiiliesimerkki
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eab69c98-c195-4555-a798-5a5f1ee62e25"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Launch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -233,6 +253,7 @@ namespace Mobiiliesimerkki
             m_Game_Move = m_Game.FindAction("Move", throwIfNotFound: true);
             m_Game_Interact = m_Game.FindAction("Interact", throwIfNotFound: true);
             m_Game_Jump = m_Game.FindAction("Jump", throwIfNotFound: true);
+            m_Game_Launch = m_Game.FindAction("Launch", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -297,6 +318,7 @@ namespace Mobiiliesimerkki
         private readonly InputAction m_Game_Move;
         private readonly InputAction m_Game_Interact;
         private readonly InputAction m_Game_Jump;
+        private readonly InputAction m_Game_Launch;
         public struct GameActions
         {
             private @Inputs m_Wrapper;
@@ -304,6 +326,7 @@ namespace Mobiiliesimerkki
             public InputAction @Move => m_Wrapper.m_Game_Move;
             public InputAction @Interact => m_Wrapper.m_Game_Interact;
             public InputAction @Jump => m_Wrapper.m_Game_Jump;
+            public InputAction @Launch => m_Wrapper.m_Game_Launch;
             public InputActionMap Get() { return m_Wrapper.m_Game; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -322,6 +345,9 @@ namespace Mobiiliesimerkki
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @Launch.started += instance.OnLaunch;
+                @Launch.performed += instance.OnLaunch;
+                @Launch.canceled += instance.OnLaunch;
             }
 
             private void UnregisterCallbacks(IGameActions instance)
@@ -335,6 +361,9 @@ namespace Mobiiliesimerkki
                 @Jump.started -= instance.OnJump;
                 @Jump.performed -= instance.OnJump;
                 @Jump.canceled -= instance.OnJump;
+                @Launch.started -= instance.OnLaunch;
+                @Launch.performed -= instance.OnLaunch;
+                @Launch.canceled -= instance.OnLaunch;
             }
 
             public void RemoveCallbacks(IGameActions instance)
@@ -357,6 +386,7 @@ namespace Mobiiliesimerkki
             void OnMove(InputAction.CallbackContext context);
             void OnInteract(InputAction.CallbackContext context);
             void OnJump(InputAction.CallbackContext context);
+            void OnLaunch(InputAction.CallbackContext context);
         }
     }
 }

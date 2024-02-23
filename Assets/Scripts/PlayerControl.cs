@@ -27,16 +27,25 @@ namespace Mobiiliesimerkki
 			_animator = GetComponent<Animator>();
 			_spriteRenderer = GetComponent<SpriteRenderer>();
 		}
-		private void FixedUpdate() {
-			_mover.Move(_movement);
-		}
 
 		private void Update()
 		{
-			// Luetaan käyttäjä syöte
 			_movement = _inputReader.Movement;
-		
 			UpdateAnimator(_movement);
+		}
+
+		private void OnTriggerEnter2D(Collider2D other)
+		{
+			ItemVisual itemVisual = other.GetComponent<ItemVisual>();
+			if(itemVisual != null)
+			{
+				//Kerää esine, lisää inventarioon
+				Debug.Log("Collected: {itemVisual.Item.Name}");
+			}
+		}
+
+		private void FixedUpdate() {
+			_mover.Move(_movement);
 		}
 
 		private void UpdateAnimator(Vector2 movement) {
