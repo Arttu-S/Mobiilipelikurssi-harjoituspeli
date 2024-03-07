@@ -252,6 +252,34 @@ namespace Harjoituspeli
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""TapControl"",
+            ""id"": ""e3252366-faa3-4bf7-8ad6-ee3d5d6f4acb"",
+            ""actions"": [
+                {
+                    ""name"": ""New action"",
+                    ""type"": ""Button"",
+                    ""id"": ""202b72f3-04a4-4868-9f93-27392cf49add"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""35c4f77e-ac63-4b57-a38c-ac944699ca52"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""New action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -264,6 +292,9 @@ namespace Harjoituspeli
             // Menu
             m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
             m_Menu_Newaction = m_Menu.FindAction("New action", throwIfNotFound: true);
+            // TapControl
+            m_TapControl = asset.FindActionMap("TapControl", throwIfNotFound: true);
+            m_TapControl_Newaction = m_TapControl.FindAction("New action", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -429,6 +460,52 @@ namespace Harjoituspeli
             }
         }
         public MenuActions @Menu => new MenuActions(this);
+
+        // TapControl
+        private readonly InputActionMap m_TapControl;
+        private List<ITapControlActions> m_TapControlActionsCallbackInterfaces = new List<ITapControlActions>();
+        private readonly InputAction m_TapControl_Newaction;
+        public struct TapControlActions
+        {
+            private @Inputs m_Wrapper;
+            public TapControlActions(@Inputs wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Newaction => m_Wrapper.m_TapControl_Newaction;
+            public InputActionMap Get() { return m_Wrapper.m_TapControl; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(TapControlActions set) { return set.Get(); }
+            public void AddCallbacks(ITapControlActions instance)
+            {
+                if (instance == null || m_Wrapper.m_TapControlActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_TapControlActionsCallbackInterfaces.Add(instance);
+                @Newaction.started += instance.OnNewaction;
+                @Newaction.performed += instance.OnNewaction;
+                @Newaction.canceled += instance.OnNewaction;
+            }
+
+            private void UnregisterCallbacks(ITapControlActions instance)
+            {
+                @Newaction.started -= instance.OnNewaction;
+                @Newaction.performed -= instance.OnNewaction;
+                @Newaction.canceled -= instance.OnNewaction;
+            }
+
+            public void RemoveCallbacks(ITapControlActions instance)
+            {
+                if (m_Wrapper.m_TapControlActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            public void SetCallbacks(ITapControlActions instance)
+            {
+                foreach (var item in m_Wrapper.m_TapControlActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_TapControlActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        public TapControlActions @TapControl => new TapControlActions(this);
         public interface IGameActions
         {
             void OnMove(InputAction.CallbackContext context);
@@ -436,6 +513,10 @@ namespace Harjoituspeli
             void OnInteract(InputAction.CallbackContext context);
         }
         public interface IMenuActions
+        {
+            void OnNewaction(InputAction.CallbackContext context);
+        }
+        public interface ITapControlActions
         {
             void OnNewaction(InputAction.CallbackContext context);
         }

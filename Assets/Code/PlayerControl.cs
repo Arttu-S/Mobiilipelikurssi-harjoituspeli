@@ -16,7 +16,7 @@ namespace Harjoituspeli
             _inputReader = GetComponent<InputReader>();
             _physicsMover = GetComponent<PhysicsMover>();
 
-            _inventory = new Inventory(_inventoryMaxWeight);
+            /*_inventory = new Inventory(_inventoryMaxWeight);*/
         }
 
         // Update is called once per frame
@@ -26,21 +26,21 @@ namespace Harjoituspeli
             _physicsMover.Move(movement);
         }
 
-        private void OnTriggerEnter2d(Collider2D other)
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            ItemVisual itemVisual = other.GetComponent<ItemVisual>();
+            /*ItemVisual itemVisual = other.GetComponent<ItemVisual>();
             if (itemVisual != null)
             {
                 Collect(itemVisual);
-            }
+            }*/
         }
 
-        private void Collect(ItemVisual itemVisual)
+        /*private void Collect(ItemVisual itemVisual)
         {
             if (_inventory.Add(itemVisual.Item, 1));
             {
             Destroy(itemVisual.gameObject);
             }
-        }
+        }*/
     }
 }
