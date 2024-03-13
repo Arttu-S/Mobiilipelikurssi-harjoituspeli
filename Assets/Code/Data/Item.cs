@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Mobiiliesimerkki
+namespace Harjoituspeli
 {
 	[CreateAssetMenu(fileName = "NewItem", menuName = "Inventory/Item")]
 	public class Item : ScriptableObject

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Mobiiliesimerkki
+namespace Harjoituspeli
 {
 	public class ItemSpawner : MonoBehaviour
 	{

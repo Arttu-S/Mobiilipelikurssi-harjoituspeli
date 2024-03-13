@@ -1,4 +1,4 @@
-namespace Mobiiliesimerkki
+namespace Harjoituspeli
 {
 	public enum ItemType
 	{
