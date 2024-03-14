@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro; // Lisää tämä, jos et ole vielä tehnyt niin
+
 
 namespace Harjoituspeli
+
 {
-	public class Inventory
+	public class Inventory : MonoBehaviour
 	{
 		// Sisältää avain-arvopareja. Kunkin avaimen on oltava uniikki.
 		// Avain: Item, Arvo: Määrä (uint)
@@ -13,14 +16,23 @@ namespace Harjoituspeli
 
 		public float MaxWeight { get; }
 
+		private int score = 0; // Lisää pisteiden laskurikenttä
+		public TextMeshProUGUI scoreText;
+
+
 		public Inventory(float maxWeight) 
 		{
 			// Auto-propertyn arvon, jolla ei ole set-määrettä, voi asettaa vain konstruktorissa.
 			MaxWeight = maxWeight;
 		}
 
+
+
 		public bool Add(Item item, uint amount)
 		{
+
+			score++;
+            UpdateScoreText(); // Päivitä pisteteksti
 			// Tarkista, ylittyykö inventorion maksimipaino
 			if (GetWeight() + item.Weight * amount > MaxWeight)
 			{
@@ -127,5 +139,13 @@ namespace Harjoituspeli
 		// 3.1 Onko tavara olemassa
 		// 4. Kokonaispaino
 		// 5. Kokonaisarvo
+
+		private void UpdateScoreText()
+        {
+            if (scoreText != null)
+            {
+                scoreText.text = "Score: " + score.ToString(); // Aseta pistetekstiin nykyinen pistemäärä
+            }
+        }
 	}
 }
