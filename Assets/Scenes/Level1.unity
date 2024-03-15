@@ -5899,6 +5899,7 @@ GameObject:
   - component: {fileID: 737410337}
   - component: {fileID: 737410336}
   - component: {fileID: 737410340}
+  - component: {fileID: 737410341}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -6004,6 +6005,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 859490703}
+--- !u!114 &737410341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737410335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd445d51568799b48847943530705553, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreText: {fileID: 859490703}
+  gameManager: {fileID: 0}
 --- !u!1 &752279818
 GameObject:
   m_ObjectHideFlags: 0
@@ -6903,6 +6918,7 @@ GameObject:
   - component: {fileID: 859490704}
   - component: {fileID: 859490703}
   - component: {fileID: 859490705}
+  - component: {fileID: 859490706}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -6949,7 +6965,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: 'Score: '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7039,6 +7055,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 859490703}
+--- !u!114 &859490706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 859490701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd445d51568799b48847943530705553, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreText: {fileID: 859490703}
+  gameManager: {fileID: 0}
 --- !u!1 &880916779
 GameObject:
   m_ObjectHideFlags: 0

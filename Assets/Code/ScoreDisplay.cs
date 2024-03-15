@@ -5,21 +5,12 @@ namespace Harjoituspeli
 {
     public class ScoreDisplay : MonoBehaviour
     {
-        public TextMeshProUGUI scoreText; // TextMeshPro-komponentti, johon näytetään pisteet
+        [SerializeField] TextMeshProUGUI scoreText; // TextMeshPro-komponentti, johon näytetään pisteet
         public GameManager gameManager; // Viittaus GameManager-luokkaan, joka pitää kirjaa pelaajan pisteistä
 
-        void Update()
+        void UpdateScore()
         {
-            // Päivitä pisteiden näyttö joka ruutupäivityksellä
-            if (scoreText != null && gameManager != null)
-            {
-                // Päivitä teksti nykyisillä pisteillä
-                scoreText.text = "Pisteet: " + gameManager.GetPoints().ToString();
-            }
-            else
-            {
-                Debug.LogWarning("ScoreText or GameManager reference is missing!");
-            }
+            scoreText.text = "Pisteet: " + gameManager.GetPoints(); // Päivitetään pisteet
         }
     }
 }

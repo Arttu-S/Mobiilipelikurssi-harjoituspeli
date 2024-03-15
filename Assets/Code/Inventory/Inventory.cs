@@ -30,7 +30,7 @@ namespace Harjoituspeli
 
 		public bool Add(Item item, uint amount)
 		{
-
+			Debug.Log(score); // Tulosta pistemäärä konsoliin
 			score++;
             UpdateScoreText(); // Päivitä pisteteksti
 			// Tarkista, ylittyykö inventorion maksimipaino
