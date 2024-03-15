@@ -55,6 +55,15 @@ namespace Harjoituspeli
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""879bd32b-10dc-45ca-ab19-5594608b0d1f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -222,6 +231,17 @@ namespace Harjoituspeli
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e9270b10-b950-4400-855c-a1587f1e67e5"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -289,6 +309,7 @@ namespace Harjoituspeli
             m_Game_Move = m_Game.FindAction("Move", throwIfNotFound: true);
             m_Game_Jump = m_Game.FindAction("Jump", throwIfNotFound: true);
             m_Game_Interact = m_Game.FindAction("Interact", throwIfNotFound: true);
+            m_Game_Pause = m_Game.FindAction("Pause", throwIfNotFound: true);
             // Menu
             m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
             m_Menu_Newaction = m_Menu.FindAction("New action", throwIfNotFound: true);
@@ -359,6 +380,7 @@ namespace Harjoituspeli
         private readonly InputAction m_Game_Move;
         private readonly InputAction m_Game_Jump;
         private readonly InputAction m_Game_Interact;
+        private readonly InputAction m_Game_Pause;
         public struct GameActions
         {
             private @Inputs m_Wrapper;
@@ -366,6 +388,7 @@ namespace Harjoituspeli
             public InputAction @Move => m_Wrapper.m_Game_Move;
             public InputAction @Jump => m_Wrapper.m_Game_Jump;
             public InputAction @Interact => m_Wrapper.m_Game_Interact;
+            public InputAction @Pause => m_Wrapper.m_Game_Pause;
             public InputActionMap Get() { return m_Wrapper.m_Game; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -384,6 +407,9 @@ namespace Harjoituspeli
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
             }
 
             private void UnregisterCallbacks(IGameActions instance)
@@ -397,6 +423,9 @@ namespace Harjoituspeli
                 @Interact.started -= instance.OnInteract;
                 @Interact.performed -= instance.OnInteract;
                 @Interact.canceled -= instance.OnInteract;
+                @Pause.started -= instance.OnPause;
+                @Pause.performed -= instance.OnPause;
+                @Pause.canceled -= instance.OnPause;
             }
 
             public void RemoveCallbacks(IGameActions instance)
@@ -511,6 +540,7 @@ namespace Harjoituspeli
             void OnMove(InputAction.CallbackContext context);
             void OnJump(InputAction.CallbackContext context);
             void OnInteract(InputAction.CallbackContext context);
+            void OnPause(InputAction.CallbackContext context);
         }
         public interface IMenuActions
         {

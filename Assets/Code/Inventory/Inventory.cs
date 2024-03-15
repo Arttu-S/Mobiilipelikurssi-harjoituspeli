@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro; // Lisää tämä, jos et ole vielä tehnyt niin
+
 
 
 namespace Harjoituspeli
 
 {
-	public class Inventory : MonoBehaviour
+	public class Inventory
 	{
 		// Sisältää avain-arvopareja. Kunkin avaimen on oltava uniikki.
 		// Avain: Item, Arvo: Määrä (uint)
@@ -17,7 +17,7 @@ namespace Harjoituspeli
 		public float MaxWeight { get; }
 
 		private int score = 0; // Lisää pisteiden laskurikenttä
-		public TextMeshProUGUI scoreText;
+
 
 
 		public Inventory(float maxWeight) 
@@ -31,8 +31,6 @@ namespace Harjoituspeli
 		public bool Add(Item item, uint amount)
 		{
 			Debug.Log(score); // Tulosta pistemäärä konsoliin
-			score++;
-            UpdateScoreText(); // Päivitä pisteteksti
 			// Tarkista, ylittyykö inventorion maksimipaino
 			if (GetWeight() + item.Weight * amount > MaxWeight)
 			{
@@ -56,7 +54,7 @@ namespace Harjoituspeli
 			{
 				_items.Add(item, amount);
 			}
-
+			score++;
 			Debug.Log($"Lisättiin esine {item.Name}, määrä: {amount}.");
 			Debug.Log($"Esineiden {item.Name} kokonaismäärä: {_items[item]}.");
 
@@ -140,12 +138,5 @@ namespace Harjoituspeli
 		// 4. Kokonaispaino
 		// 5. Kokonaisarvo
 
-		private void UpdateScoreText()
-        {
-            if (scoreText != null)
-            {
-                scoreText.text = "Score: " + score.ToString(); // Aseta pistetekstiin nykyinen pistemäärä
-            }
-        }
 	}
 }
