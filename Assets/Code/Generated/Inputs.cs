@@ -64,6 +64,15 @@ namespace Harjoituspeli
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ResetScore"",
+                    ""type"": ""Button"",
+                    ""id"": ""272e23e2-cc20-4488-bca8-37ebeec86af4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -242,6 +251,28 @@ namespace Harjoituspeli
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""21032735-6b2d-4442-a9ad-309974cd4f1a"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ResetScore"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""65804724-861b-4621-8bd5-3f5da7a12ec9"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ResetScore"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -310,6 +341,7 @@ namespace Harjoituspeli
             m_Game_Jump = m_Game.FindAction("Jump", throwIfNotFound: true);
             m_Game_Interact = m_Game.FindAction("Interact", throwIfNotFound: true);
             m_Game_Pause = m_Game.FindAction("Pause", throwIfNotFound: true);
+            m_Game_ResetScore = m_Game.FindAction("ResetScore", throwIfNotFound: true);
             // Menu
             m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
             m_Menu_Newaction = m_Menu.FindAction("New action", throwIfNotFound: true);
@@ -381,6 +413,7 @@ namespace Harjoituspeli
         private readonly InputAction m_Game_Jump;
         private readonly InputAction m_Game_Interact;
         private readonly InputAction m_Game_Pause;
+        private readonly InputAction m_Game_ResetScore;
         public struct GameActions
         {
             private @Inputs m_Wrapper;
@@ -389,6 +422,7 @@ namespace Harjoituspeli
             public InputAction @Jump => m_Wrapper.m_Game_Jump;
             public InputAction @Interact => m_Wrapper.m_Game_Interact;
             public InputAction @Pause => m_Wrapper.m_Game_Pause;
+            public InputAction @ResetScore => m_Wrapper.m_Game_ResetScore;
             public InputActionMap Get() { return m_Wrapper.m_Game; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -410,6 +444,9 @@ namespace Harjoituspeli
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
+                @ResetScore.started += instance.OnResetScore;
+                @ResetScore.performed += instance.OnResetScore;
+                @ResetScore.canceled += instance.OnResetScore;
             }
 
             private void UnregisterCallbacks(IGameActions instance)
@@ -426,6 +463,9 @@ namespace Harjoituspeli
                 @Pause.started -= instance.OnPause;
                 @Pause.performed -= instance.OnPause;
                 @Pause.canceled -= instance.OnPause;
+                @ResetScore.started -= instance.OnResetScore;
+                @ResetScore.performed -= instance.OnResetScore;
+                @ResetScore.canceled -= instance.OnResetScore;
             }
 
             public void RemoveCallbacks(IGameActions instance)
@@ -541,6 +581,7 @@ namespace Harjoituspeli
             void OnJump(InputAction.CallbackContext context);
             void OnInteract(InputAction.CallbackContext context);
             void OnPause(InputAction.CallbackContext context);
+            void OnResetScore(InputAction.CallbackContext context);
         }
         public interface IMenuActions
         {

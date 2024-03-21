@@ -21,20 +21,21 @@ namespace Harjoituspeli
             _inventory = new Inventory(_inventoryMaxWeight);
         }
 
+        
+		private void OnTriggerEnter2D(Collider2D otherCollider)
+		{
+			if (otherCollider.gameObject.TryGetComponent<Coin>(out Coin coin))
+			{
+				GameManager.Score += coin.Score;
+				Destroy(otherCollider.gameObject);
+			}
+		}
+
         // Update is called once per frame
         void Update()
         {
             Vector2 movement = _inputReader.Movement;
             _physicsMover.Move(movement);
-        }
-
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            ItemVisual itemVisual = other.GetComponent<ItemVisual>();
-            if (itemVisual != null)
-            {
-                Collect(itemVisual);
-            }
         }
 
 		private void Collect(ItemVisual itemVisual)

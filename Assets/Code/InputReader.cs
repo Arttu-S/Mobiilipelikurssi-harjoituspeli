@@ -43,6 +43,12 @@ namespace Harjoituspeli
                 _physicsMover.Jump();
                 Debug.Log("Jumping");
             }
+
+            if (_inputs.Game.ResetScore.triggered)      // call ResetScore when R is pressed
+            {
+                GameManager.Reset();
+            }
+                
         }
     }
 }

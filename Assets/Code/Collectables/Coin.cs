@@ -3,6 +3,12 @@ using UnityEngine;
 namespace Harjoituspeli {
 public class Coin : MonoBehaviour
 {
+
+
+		[SerializeField] private int _score = 1;
+
+		public int Score => _score;
+
     // Pisteiden arvo kolikolle
     [SerializeField] private int points;
 
@@ -11,6 +17,8 @@ public class Coin : MonoBehaviour
     {
         points = value;
     }
+
+    
 
     // Metodi palauttaa kolikon pisteet
     public int GetPoints()
