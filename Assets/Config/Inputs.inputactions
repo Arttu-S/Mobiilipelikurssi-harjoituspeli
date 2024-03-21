@@ -31,6 +31,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "879bd32b-10dc-45ca-ab19-5594608b0d1f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -198,6 +207,17 @@
                     "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e9270b10-b950-4400-855c-a1587f1e67e5",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -219,6 +239,34 @@
                 {
                     "name": "",
                     "id": "73ed471f-3c5e-4792-b79b-b7c09ce7de35",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "TapControl",
+            "id": "e3252366-faa3-4bf7-8ad6-ee3d5d6f4acb",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "202b72f3-04a4-4868-9f93-27392cf49add",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "35c4f77e-ac63-4b57-a38c-ac944699ca52",
                     "path": "",
                     "interactions": "",
                     "processors": "",

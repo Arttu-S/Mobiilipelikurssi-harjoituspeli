@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
+  - Coin
   layers:
   - Default
   - TransparentFX
@@ -53,4 +54,7 @@ TagManager:
     locked: 0
   - name: Char
     uniqueID: 3302910261
+    locked: 0
+  - name: Loot
+    uniqueID: 2382586385
     locked: 0

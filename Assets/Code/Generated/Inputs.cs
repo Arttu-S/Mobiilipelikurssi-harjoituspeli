@@ -55,6 +55,15 @@ namespace Harjoituspeli
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""879bd32b-10dc-45ca-ab19-5594608b0d1f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -222,6 +231,17 @@ namespace Harjoituspeli
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e9270b10-b950-4400-855c-a1587f1e67e5"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -252,6 +272,34 @@ namespace Harjoituspeli
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""TapControl"",
+            ""id"": ""e3252366-faa3-4bf7-8ad6-ee3d5d6f4acb"",
+            ""actions"": [
+                {
+                    ""name"": ""New action"",
+                    ""type"": ""Button"",
+                    ""id"": ""202b72f3-04a4-4868-9f93-27392cf49add"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""35c4f77e-ac63-4b57-a38c-ac944699ca52"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""New action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -261,9 +309,13 @@ namespace Harjoituspeli
             m_Game_Move = m_Game.FindAction("Move", throwIfNotFound: true);
             m_Game_Jump = m_Game.FindAction("Jump", throwIfNotFound: true);
             m_Game_Interact = m_Game.FindAction("Interact", throwIfNotFound: true);
+            m_Game_Pause = m_Game.FindAction("Pause", throwIfNotFound: true);
             // Menu
             m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
             m_Menu_Newaction = m_Menu.FindAction("New action", throwIfNotFound: true);
+            // TapControl
+            m_TapControl = asset.FindActionMap("TapControl", throwIfNotFound: true);
+            m_TapControl_Newaction = m_TapControl.FindAction("New action", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -328,6 +380,7 @@ namespace Harjoituspeli
         private readonly InputAction m_Game_Move;
         private readonly InputAction m_Game_Jump;
         private readonly InputAction m_Game_Interact;
+        private readonly InputAction m_Game_Pause;
         public struct GameActions
         {
             private @Inputs m_Wrapper;
@@ -335,6 +388,7 @@ namespace Harjoituspeli
             public InputAction @Move => m_Wrapper.m_Game_Move;
             public InputAction @Jump => m_Wrapper.m_Game_Jump;
             public InputAction @Interact => m_Wrapper.m_Game_Interact;
+            public InputAction @Pause => m_Wrapper.m_Game_Pause;
             public InputActionMap Get() { return m_Wrapper.m_Game; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -353,6 +407,9 @@ namespace Harjoituspeli
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
             }
 
             private void UnregisterCallbacks(IGameActions instance)
@@ -366,6 +423,9 @@ namespace Harjoituspeli
                 @Interact.started -= instance.OnInteract;
                 @Interact.performed -= instance.OnInteract;
                 @Interact.canceled -= instance.OnInteract;
+                @Pause.started -= instance.OnPause;
+                @Pause.performed -= instance.OnPause;
+                @Pause.canceled -= instance.OnPause;
             }
 
             public void RemoveCallbacks(IGameActions instance)
@@ -429,13 +489,64 @@ namespace Harjoituspeli
             }
         }
         public MenuActions @Menu => new MenuActions(this);
+
+        // TapControl
+        private readonly InputActionMap m_TapControl;
+        private List<ITapControlActions> m_TapControlActionsCallbackInterfaces = new List<ITapControlActions>();
+        private readonly InputAction m_TapControl_Newaction;
+        public struct TapControlActions
+        {
+            private @Inputs m_Wrapper;
+            public TapControlActions(@Inputs wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Newaction => m_Wrapper.m_TapControl_Newaction;
+            public InputActionMap Get() { return m_Wrapper.m_TapControl; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(TapControlActions set) { return set.Get(); }
+            public void AddCallbacks(ITapControlActions instance)
+            {
+                if (instance == null || m_Wrapper.m_TapControlActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_TapControlActionsCallbackInterfaces.Add(instance);
+                @Newaction.started += instance.OnNewaction;
+                @Newaction.performed += instance.OnNewaction;
+                @Newaction.canceled += instance.OnNewaction;
+            }
+
+            private void UnregisterCallbacks(ITapControlActions instance)
+            {
+                @Newaction.started -= instance.OnNewaction;
+                @Newaction.performed -= instance.OnNewaction;
+                @Newaction.canceled -= instance.OnNewaction;
+            }
+
+            public void RemoveCallbacks(ITapControlActions instance)
+            {
+                if (m_Wrapper.m_TapControlActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            public void SetCallbacks(ITapControlActions instance)
+            {
+                foreach (var item in m_Wrapper.m_TapControlActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_TapControlActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        public TapControlActions @TapControl => new TapControlActions(this);
         public interface IGameActions
         {
             void OnMove(InputAction.CallbackContext context);
             void OnJump(InputAction.CallbackContext context);
             void OnInteract(InputAction.CallbackContext context);
+            void OnPause(InputAction.CallbackContext context);
         }
         public interface IMenuActions
+        {
+            void OnNewaction(InputAction.CallbackContext context);
+        }
+        public interface ITapControlActions
         {
             void OnNewaction(InputAction.CallbackContext context);
         }
