@@ -1,19 +1,39 @@
 using UnityEngine;
+using TMPro;
 
 public class PauseGame : MonoBehaviour
 {
+    public TextMeshProUGUI pauseText; // Reference to the TextMeshPro component
+
+
+    void Awake() {
+        DontDestroyOnLoad(gameObject);
+
+    }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.P))      // call TogglePause when P is pressed
         {
-            // Toggle time scale between 0 and 1
-            if (Time.timeScale == 0f)
+            TogglePause();
+        }
+    }
+
+    void TogglePause()
+    {
+        if (Time.timeScale == 0f)   // if paused set time to 1
+        {
+            Time.timeScale = 1f;
+            if (pauseText != null)
             {
-                Time.timeScale = 1f;
+                pauseText.text = ""; // Clear the text when the game is resumed
             }
-            else
+        }
+        else
+        {
+            Time.timeScale = 0f;        // if not paused set time to 0
+            if (pauseText != null)
             {
-                Time.timeScale = 0f;
+                pauseText.text = "* Paused *"; // Set the text to "Paused" when the game is paused
             }
         }
     }
